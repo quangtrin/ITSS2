@@ -55,10 +55,10 @@ const ApplicationTile = (props) => {
   const { application } = props;
   const setPopup = useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
-  const [rating, setRating] = useState(application.job.rating);
+  const [rating, setRating] = useState(1);
 
-  const appliedOn = new Date(application.dateOfApplication);
-  const joinedOn = new Date(application.dateOfJoining);
+  // const appliedOn = new Date(application.dateOfApplication);
+  // const joinedOn = new Date(application.dateOfJoining);
 
   const fetchRating = () => {
     axios
@@ -135,7 +135,7 @@ const ApplicationTile = (props) => {
       <Grid container>
         <Grid container item xs={9} spacing={1} direction="column">
           <Grid item>
-            <Typography variant="h5">{application.job.title}</Typography>
+            <Typography variant="h5">{"ashdasjk"}</Typography>
           </Grid>
           {/* <Grid item>Posted By: {application.recruiter.name}</Grid> */}
           <Grid container item direction="row" alignItems="center">
@@ -149,29 +149,41 @@ const ApplicationTile = (props) => {
                   borderRadius: "4px",
                 }}
               >
-                {application.job.jobType}
+                {"sdasjkjh"}
               </div>
             </Grid>
-            <Grid item style={{color: "#767F8C"}}>Salary: ${application.job.salary}</Grid>
+            <Grid item style={{ color: "#767F8C" }}>
+              Salary: ${871289739}
+            </Grid>
           </Grid>
           <Grid item direction="row" container alignItems="center">
-            <Grid item> 
-              <img src={EmployersLogo} alt="Employers Logo" style={{marginRight: "10px"}}/>
+            <Grid item>
+              <img
+                src={EmployersLogo}
+                alt="Employers Logo"
+                style={{ marginRight: "10px" }}
+              />
             </Grid>
-            <Grid> 
+            <Grid>
               <Grid item>
-                <div style={{marginBottom: "5px"}}>Google Inc.</div>
+                <div style={{ marginBottom: "5px" }}>Google Inc.</div>
               </Grid>
               <Grid item container direction="row">
                 <Grid>
-                  <img height={"20px"} src={MapPin} alt="Map Pin" style={{marginRight: "5px"}}/>
+                  <img
+                    height={"20px"}
+                    src={MapPin}
+                    alt="Map Pin"
+                    style={{ marginRight: "5px" }}
+                  />
                 </Grid>
                 <Grid>
-                  <div style={{lineHeight: "20px", color: "#767F8C"}}>Dhaka, Bangladesh</div>
+                  <div style={{ lineHeight: "20px", color: "#767F8C" }}>
+                    Dhaka, Bangladesh
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
-            
           </Grid>
           {/* <Grid item>
             Duration :{" "}
@@ -185,10 +197,10 @@ const ApplicationTile = (props) => {
             ))}
           </Grid>
           <Grid item>Applied On: {appliedOn.toLocaleDateString()}</Grid> */}
-          {application.status === "accepted" ||
+          {/* {application.status === "accepted" ||
           application.status === "finished" ? (
             <Grid item>Joined On: {joinedOn.toLocaleDateString()}</Grid>
-          ) : null}
+          ) : null} */}
         </Grid>
         {/* <Grid item container direction="column" xs={3}>
           <Grid item xs>
@@ -301,72 +313,25 @@ const Applications = (props) => {
         justify="center"
         spacing={2}
       >
-        {applications.length > 0 ? (
-          applications.map((obj) => (
-            <Grid item xs={4}>
-              <ApplicationTile application={obj} />
-            </Grid>
-          ))
-        ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
-        )}
-        {applications.length > 0 ? (
-          applications.map((obj) => (
-            <Grid item xs={4}>
-              <ApplicationTile application={obj} />
-            </Grid>
-          ))
-        ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
-        )}
-        {applications.length > 0 ? (
-          applications.map((obj) => (
-            <Grid item xs={4}>
-              <ApplicationTile application={obj} />
-            </Grid>
-          ))
-        ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
-        )}
-        {applications.length > 0 ? (
-          applications.map((obj) => (
-            <Grid item xs={4}>
-              <ApplicationTile application={obj} />
-            </Grid>
-          ))
-        ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
-        )}
-        {applications.length > 0 ? (
-          applications.map((obj) => (
-            <Grid item xs={4}>
-              <ApplicationTile application={obj} />
-            </Grid>
-          ))
-        ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
-        )}
-        {applications.length > 0 ? (
-          applications.map((obj) => (
-            <Grid item xs={4}>
-              <ApplicationTile application={obj} />
-            </Grid>
-          ))
-        ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
-        )}
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        
       </Grid>
     </Grid>
   );
