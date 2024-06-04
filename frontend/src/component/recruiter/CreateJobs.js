@@ -89,7 +89,7 @@ const CreateJobs = (props) => {
         console.log(err.response);
       });
   };
-  console.log(jobDetails);
+  
   return (
     <>
       <Grid

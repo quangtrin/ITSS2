@@ -10,6 +10,9 @@ let schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    jobDescription: {
+      type: String,
+    },
     maxApplicants: {
       type: Number,
       validate: [
@@ -88,6 +91,26 @@ let schema = new mongoose.Schema(
       ],
     },
     skillsets: [String],
+    benefits: [String],
+    address: {
+      type: String,
+    },
+    jobOverview: [
+      {
+        jobExpireIn: {
+          type: String,
+        },
+        jobLevel: {
+          type: String,
+        },
+        experience: {
+          type: String,
+        },
+        education: {
+          type: String,
+        },
+      },
+    ],
     jobType: {
       type: String,
       required: true,
