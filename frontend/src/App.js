@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes as Switch, Route } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
 
@@ -17,6 +17,7 @@ import AcceptedApplicants from "./component/recruiter/AcceptedApplicants";
 import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import isAuth, { userType } from "./lib/isAuth";
+import { io } from "socket.io-client";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -40,6 +41,10 @@ function App() {
     severity: "",
     message: "",
   });
+
+  useEffect(() => {
+    const socket = io("http://localhost:4444")
+  }, []);
   return (
     <BrowserRouter>
       <SetPopupContext.Provider value={setPopup}>
