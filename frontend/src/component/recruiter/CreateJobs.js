@@ -9,6 +9,7 @@ import {
   TextField,
   MenuItem,
 } from "@material-ui/core";
+import ChipInput from "material-ui-chip-input";
 import axios from "axios";
 import Chip from "@material-ui/core/Chip";
 import { SetPopupContext } from "../../App";
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // padding: "30px",
+    padding: "30px",
   },
 }));
 
@@ -88,7 +89,7 @@ const CreateJobs = (props) => {
         console.log(err.response);
       });
   };
-
+  console.log(jobDetails);
   return (
     <>
       <Grid
@@ -131,18 +132,20 @@ const CreateJobs = (props) => {
                   />
                 </Grid>
                 <Grid item>
-                  <Chip
+                  <ChipInput
                     className={classes.inputBox}
                     label="Skills"
                     variant="outlined"
                     helperText="Press enter to add skills"
                     value={jobDetails.skillsets}
-                    onAdd={(chip) =>
-                      setJobDetails({
-                        ...jobDetails,
-                        skillsets: [...jobDetails.skillsets, chip],
-                      })
-                    }
+                    onAdd={(chip) => {
+                      if (!jobDetails.skillsets.includes(chip)) {
+                        setJobDetails({
+                          ...jobDetails,
+                          skillsets: [...jobDetails.skillsets, chip],
+                        });
+                      }
+                    }}
                     onDelete={(chip, index) => {
                       let skillsets = jobDetails.skillsets;
                       skillsets.splice(index, 1);
