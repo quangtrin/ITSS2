@@ -629,58 +629,94 @@ router.get("/jobs/:id/applications", jwtAuth, (req, res) => {
 });
 
 // recruiter/applicant gets all his applications [pagination]
-router.get("/applications", jwtAuth, (req, res) => {
+router.get("/applications", jwtAuth, async (req, res) => {
   const user = req.user;
 
   // const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
   // const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
   // const skip = page - 1 >= 0 ? (page - 1) * limit : 0;
 
-  Application.aggregate([
-    {
-      $lookup: {
-        from: "jobapplicantinfos",
-        localField: "userId",
-        foreignField: "userId",
-        as: "jobApplicant",
-      },
-    },
-    { $unwind: "$jobApplicant" },
-    {
-      $lookup: {
-        from: "jobs",
-        localField: "jobId",
-        foreignField: "_id",
-        as: "job",
-      },
-    },
-    { $unwind: "$job" },
-    {
-      $lookup: {
-        from: "recruiterinfos",
-        localField: "recruiterId",
-        foreignField: "userId",
-        as: "recruiter",
-      },
-    },
-    { $unwind: "$recruiter" },
-    {
-      $match: {
-        [user.type === "recruiter" ? "recruiterId" : "userId"]: user._id,
-      },
-    },
-    {
-      $sort: {
-        dateOfApplication: -1,
-      },
-    },
-  ])
-    .then((applications) => {
-      res.json(applications);
+  // Application.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: "jobapplicantinfos",
+  //       localField: "userId",
+  //       foreignField: "userId",
+  //       as: "jobApplicant",
+  //     },
+  //   },
+  //   { $unwind: "$jobApplicant" },
+  //   {
+  //     $lookup: {
+  //       from: "jobs",
+  //       localField: "jobId",
+  //       foreignField: "_id",
+  //       as: "job",
+  //     },
+  //   },
+  //   { $unwind: "$job" },
+  //   {
+  //     $lookup: {
+  //       from: "recruiterinfos",
+  //       localField: "recruiterId",
+  //       foreignField: "userId",
+  //       as: "recruiter",
+  //     },
+  //   },
+  //   { $unwind: "$recruiter" },
+  //   {
+  //     $match: {
+  //       [user.type === "recruiter" ? "recruiterId" : "userId"]: user._id,
+  //     },
+  //   },
+  //   {
+  //     $sort: {
+  //       dateOfApplication: -1,
+  //     },
+  //   },
+  // ])
+  //   .then((applications) => {
+  //     res.json(applications);
+  //   })
+  //   .catch((err) => {
+  //     res.status(400).json(err);
+  //   });
+
+  let applications = await Application.find();
+  applications = await Promise.all(
+    await applications.map(async (application) => {
+      const jobApplicant = await JobApplicant.find({
+        userId: application.userId,
+      });
+      return {
+        ...application._doc,
+        jobApplicant,
+      };
     })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+  );
+
+  applications = await Promise.all(
+    await applications.map(async (application) => {
+      const job = await Job.find({ _id: application.jobId });
+      return {
+        ...application,
+        job,
+      };
+    })
+  );
+
+  applications = await Promise.all(
+    await applications.map(async (application) => {
+      const recruiter = await Recruiter.find({
+        userId: application.recruiterId,
+      });
+      return {
+        ...application,
+        recruiter,
+      };
+    })
+  );
+  res.json(applications);
 });
 
 // update status of application: [Applicant: Can cancel, Recruiter: Can do everything] [todo: test: done]
