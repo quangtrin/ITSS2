@@ -11,11 +11,12 @@ import axios from "axios";
 import { Link as Redirect } from "react-router-dom";
 
 import PasswordInput from "../lib/PasswordInput";
+import { useNavigate as useHistory } from "react-router-dom";
 import EmailInput from "../lib/EmailInput";
 import { SetPopupContext } from "../App";
 
 import apiList from "../lib/apiList";
-import isAuth from "../lib/isAuth";
+import isAuth, { userType } from "../lib/isAuth";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
+  let history = useHistory();
   const classes = useStyles();
   const setPopup = useContext(SetPopupContext);
 
@@ -37,7 +39,7 @@ const Login = (props) => {
 
   const [loginDetails, setLoginDetails] = useState({
     email: "",
-    password: "",
+    password: "123456",
   });
 
   const [inputErrorHandler, setInputErrorHandler] = useState({
@@ -73,8 +75,12 @@ const Login = (props) => {
       return inputErrorHandler[obj].error;
     });
     if (verified) {
+      const details = {
+        email: loginDetails.email + "@gmail.com",
+        password: loginDetails.password,
+      };
       axios
-        .post(apiList.login, loginDetails)
+        .post(apiList.login, details)
         .then((response) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("type", response.data.type);
@@ -84,6 +90,7 @@ const Login = (props) => {
             severity: "success",
             message: "Logged in successfully",
           });
+          userType()  === "recruiter" ? history("/myjobs") : history("/applications");
           console.log(response);
         })
         .catch((err) => {
@@ -108,11 +115,11 @@ const Login = (props) => {
   ) : (
     <Paper elevation={3} className={classes.body}>
       <Grid container direction="column" spacing={4} alignItems="center">
-        <Grid item>
+        {/* <Grid item>
           <Typography variant="h3" component="h2">
             Login
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item>
           <EmailInput
             label="Email"
@@ -123,14 +130,14 @@ const Login = (props) => {
             className={classes.inputBox}
           />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <PasswordInput
             label="Password"
             value={loginDetails.password}
             onChange={(event) => handleInput("password", event.target.value)}
             className={classes.inputBox}
           />
-        </Grid>
+        </Grid> */}
         <Grid item>
           <Button
             variant="contained"

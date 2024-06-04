@@ -8,6 +8,7 @@ import {
 import { useNavigate as useHistory } from "react-router-dom";
 
 import isAuth, { userType } from "../lib/isAuth";
+import "./Navbar.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,47 +32,47 @@ const Navbar = (props) => {
   };
 
   return (
-    <AppBar position="fixed">
+    <div className="appbar-navbar">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Job Portal
+          Find Job
         </Typography>
         {isAuth() ? (
           userType() === "recruiter" ? (
             <>
-              <Button color="inherit" onClick={() => handleClick("/home")}>
+              {/* <Button color="inherit" onClick={() => handleClick("/home")}>
                 Home
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/addjob")}>
+              </Button> */}
+              {/* <Button color="inherit" onClick={() => handleClick("/addjob")}>
                 Add Jobs
-              </Button>
+              </Button> */}
               <Button color="inherit" onClick={() => handleClick("/myjobs")}>
                 My Jobs
               </Button>
-              <Button color="inherit" onClick={() => handleClick("/employees")}>
+              {/* <Button color="inherit" onClick={() => handleClick("/employees")}>
                 Employees
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/profile")}>
+              </Button> */}
+              {/* <Button color="inherit" onClick={() => handleClick("/profile")}>
                 Profile
-              </Button>
+              </Button> */}
               <Button color="inherit" onClick={() => handleClick("/logout")}>
                 Logout
               </Button>
             </>
           ) : (
             <>
-              <Button color="inherit" onClick={() => handleClick("/home")}>
+              {/* <Button color="inherit" onClick={() => handleClick("/home")}>
                 Home
-              </Button>
+              </Button> */}
               <Button
                 color="inherit"
                 onClick={() => handleClick("/applications")}
               >
-                Applications
+                Job
               </Button>
-              <Button color="inherit" onClick={() => handleClick("/profile")}>
+              {/* <Button color="inherit" onClick={() => handleClick("/profile")}>
                 Profile
-              </Button>
+              </Button> */}
               <Button color="inherit" onClick={() => handleClick("/logout")}>
                 Logout
               </Button>
@@ -82,13 +83,13 @@ const Navbar = (props) => {
             <Button color="inherit" onClick={() => handleClick("/login")}>
               Login
             </Button>
-            <Button color="inherit" onClick={() => handleClick("/signup")}>
+            {/* <Button color="inherit" onClick={() => handleClick("/signup")}>
               Signup
-            </Button>
+            </Button> */}
           </>
         )}
       </Toolbar>
-    </AppBar>
+    </div>
   );
 };
 

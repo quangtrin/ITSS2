@@ -18,6 +18,8 @@ import {
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "axios";
+import EmployersLogo from "../assets/EmployersLogo.png";
+import MapPin from "../assets/MapPin.png";
 
 import { SetPopupContext } from "../App";
 
@@ -37,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
   jobTileOuter: {
     padding: "30px",
-    margin: "20px 0",
     boxSizing: "border-box",
     width: "100%",
   },
@@ -136,10 +137,43 @@ const ApplicationTile = (props) => {
           <Grid item>
             <Typography variant="h5">{application.job.title}</Typography>
           </Grid>
-          <Grid item>Posted By: {application.recruiter.name}</Grid>
-          <Grid item>Role : {application.job.jobType}</Grid>
-          <Grid item>Salary : &#8377; {application.job.salary} per month</Grid>
-          <Grid item>
+          {/* <Grid item>Posted By: {application.recruiter.name}</Grid> */}
+          <Grid container item direction="row" alignItems="center">
+            <Grid item>
+              <div
+                style={{
+                  padding: "2px 10px",
+                  backgroundColor: "#E7F6EA",
+                  color: "#0BA02C",
+                  marginRight: "5px",
+                  borderRadius: "4px",
+                }}
+              >
+                {application.job.jobType}
+              </div>
+            </Grid>
+            <Grid item style={{color: "#767F8C"}}>Salary: ${application.job.salary}</Grid>
+          </Grid>
+          <Grid item direction="row" container alignItems="center">
+            <Grid item> 
+              <img src={EmployersLogo} alt="Employers Logo" style={{marginRight: "10px"}}/>
+            </Grid>
+            <Grid> 
+              <Grid item>
+                <div style={{marginBottom: "5px"}}>Google Inc.</div>
+              </Grid>
+              <Grid item container direction="row">
+                <Grid>
+                  <img height={"20px"} src={MapPin} alt="Map Pin" style={{marginRight: "5px"}}/>
+                </Grid>
+                <Grid>
+                  <div style={{lineHeight: "20px", color: "#767F8C"}}>Dhaka, Bangladesh</div>
+                </Grid>
+              </Grid>
+            </Grid>
+            
+          </Grid>
+          {/* <Grid item>
             Duration :{" "}
             {application.job.duration !== 0
               ? `${application.job.duration} month`
@@ -150,13 +184,13 @@ const ApplicationTile = (props) => {
               <Chip label={skill} style={{ marginRight: "2px" }} />
             ))}
           </Grid>
-          <Grid item>Applied On: {appliedOn.toLocaleDateString()}</Grid>
+          <Grid item>Applied On: {appliedOn.toLocaleDateString()}</Grid> */}
           {application.status === "accepted" ||
           application.status === "finished" ? (
             <Grid item>Joined On: {joinedOn.toLocaleDateString()}</Grid>
           ) : null}
         </Grid>
-        <Grid item container direction="column" xs={3}>
+        {/* <Grid item container direction="column" xs={3}>
           <Grid item xs>
             <Paper
               className={classes.statusBlock}
@@ -184,7 +218,7 @@ const ApplicationTile = (props) => {
               </Button>
             </Grid>
           ) : null}
-        </Grid>
+        </Grid> */}
       </Grid>
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
@@ -252,27 +286,79 @@ const Applications = (props) => {
 
   return (
     <Grid
-      container
       item
       direction="column"
       alignItems="center"
       style={{ padding: "30px", minHeight: "93vh" }}
     >
-      <Grid item>
-        <Typography variant="h2">Applications</Typography>
-      </Grid>
       <Grid
         container
         item
         xs
-        direction="column"
+        direction="row"
         style={{ width: "100%" }}
-        alignItems="stretch"
+        // alignItems="stretch"
         justify="center"
+        spacing={2}
       >
         {applications.length > 0 ? (
           applications.map((obj) => (
-            <Grid item>
+            <Grid item xs={4}>
+              <ApplicationTile application={obj} />
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            No Applications Found
+          </Typography>
+        )}
+        {applications.length > 0 ? (
+          applications.map((obj) => (
+            <Grid item xs={4}>
+              <ApplicationTile application={obj} />
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            No Applications Found
+          </Typography>
+        )}
+        {applications.length > 0 ? (
+          applications.map((obj) => (
+            <Grid item xs={4}>
+              <ApplicationTile application={obj} />
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            No Applications Found
+          </Typography>
+        )}
+        {applications.length > 0 ? (
+          applications.map((obj) => (
+            <Grid item xs={4}>
+              <ApplicationTile application={obj} />
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            No Applications Found
+          </Typography>
+        )}
+        {applications.length > 0 ? (
+          applications.map((obj) => (
+            <Grid item xs={4}>
+              <ApplicationTile application={obj} />
+            </Grid>
+          ))
+        ) : (
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            No Applications Found
+          </Typography>
+        )}
+        {applications.length > 0 ? (
+          applications.map((obj) => (
+            <Grid item xs={4}>
               <ApplicationTile application={obj} />
             </Grid>
           ))

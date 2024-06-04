@@ -30,7 +30,7 @@ const EmailInput = (props) => {
           if (re.test(String(event.target.value).toLowerCase())) {
             handleInputError("email", false, "");
           } else {
-            handleInputError("email", true, "Incorrect email format");
+            handleInputError("email", false, "");
           }
         }
       }}
