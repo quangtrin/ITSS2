@@ -1,0 +1,18 @@
+[
+    {
+        "_id": "663fa29b13659b5faf2212ad",
+        "name": "quang",
+        "phone": 123213421,
+        "password": "123456",
+        "role": "Employer",
+        "createdAt": "2024-05-11T16: 53: 47.936+00: 00"
+    },
+    {
+        "_id": "663fa29b13659b5faf2212ad",
+        "name": "quangceo",
+        "phone": 123213421,
+        "password": "123456",
+        "role": "Job seeker",
+        "createdAt": "2024-05-11T16: 53: 47.936+00: 00"
+    }
+]
