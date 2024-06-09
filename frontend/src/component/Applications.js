@@ -15,6 +15,9 @@ import {
   FormGroup,
   MenuItem,
   Checkbox,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "axios";
@@ -149,7 +152,7 @@ const ApplicationTile = (props) => {
                   borderRadius: "4px",
                 }}
               >
-                {job.type}
+                {job.jobType}
               </div>
             </Grid>
             <Grid item style={{ color: "#767F8C" }}>
@@ -270,6 +273,32 @@ const Applications = (props) => {
   const setPopup = useContext(SetPopupContext);
   const [jobs, setJobs] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
+  const [level, setLevel] = useState("");
+  const [contractType, setContractType] = useState("");
+  const [salary, setSalary] = useState("");
+
+  const handleSearch = () => {
+    // Handle search here
+  };
+
+  const locations = ["Hanoi", "Ho Chi Minh", "Da Nang", "Hai Phong", "Can Tho"];
+  const levels = ["Intern", "Junior", "Mid-level", "Senior", "Manager"];
+  const contractTypes = [
+    "Full-time",
+    "Part-time",
+    "Contract",
+    "Temporary",
+    "Internship",
+  ];
+  const salaries = [
+    "Under $10000",
+    "$10000 - $20000",
+    "$20000 - $30000",
+    "Over $30000",
+  ];
+
   useEffect(() => {
     getData();
   }, []);
@@ -297,27 +326,125 @@ const Applications = (props) => {
   };
 
   return (
-    <Grid
-      item
-      direction="column"
-      alignItems="center"
-      style={{ padding: "30px", minHeight: "93vh" }}
-    >
+    <Grid container direction="column">
+      <Grid item xs={12} style={{ textAlign: "center", margin: "20px 0" }}>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ width: "90%" }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button onClick={handleSearch} color="primary">
+                  Search
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Grid>
+      <Grid item container xs={12} spacing={1} style={{ textAlign: "center" }}>
+        <Grid item xs={3}>
+          <FormControl variant="outlined" style={{ width: "95%" }}>
+            <InputLabel>All Locations</InputLabel>
+            <Select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              MenuProps={{
+                transformOrigin: {
+                  vertical: -165,
+                  horizontal: "center",
+                },
+              }}
+            >
+              {locations.map((location) => (
+                <MenuItem value={location}>{location}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={3}>
+          <FormControl variant="outlined" style={{ width: "95%" }}>
+            <InputLabel>All Levels</InputLabel>
+            <Select
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+              MenuProps={{
+                transformOrigin: {
+                  vertical: -55,
+                  horizontal: "left",
+                },
+              }}
+            >
+              {levels.map((level) => (
+                <MenuItem value={level}>{level}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={3}>
+          <FormControl variant="outlined" style={{ width: "95%" }}>
+            <InputLabel>All Contract Types</InputLabel>
+            <Select
+              value={contractType}
+              onChange={(e) => setContractType(e.target.value)}
+              MenuProps={{
+                transformOrigin: {
+                  vertical: -55,
+                  horizontal: "left",
+                },
+              }}
+            >
+              {contractTypes.map((contractType) => (
+                <MenuItem value={contractType}>{contractType}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={3}>
+          <FormControl variant="outlined" style={{ width: "95%" }}>
+            <InputLabel>Salary</InputLabel>
+            <Select
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              MenuProps={{
+                transformOrigin: {
+                  vertical: -55,
+                  horizontal: "left",
+                },
+              }}
+            >
+              {salaries.map((salary) => (
+                <MenuItem value={salary}>{salary}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
       <Grid
-        container
         item
-        xs
-        direction="row"
-        style={{ width: "100%" }}
-        // alignItems="stretch"
-        justify="center"
-        spacing={2}
+        direction="column"
+        alignItems="center"
+        style={{ padding: "30px", minHeight: "93vh" }}
       >
-        {jobs.map((job) => (
-          <Grid item xs={4}>
-            <ApplicationTile job={job}/>
-          </Grid>
-        ))}
+        <Grid
+          container
+          item
+          xs
+          direction="row"
+          style={{ width: "100%" }}
+          // alignItems="stretch"
+          justify="center"
+          spacing={2}
+        >
+          {jobs.map((job) => (
+            <Grid item xs={4}>
+              <ApplicationTile job={job} />
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );
