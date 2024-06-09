@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ApplicationTile = (props) => {
   const classes = useStyles();
-  const { application } = props;
+  const { job } = props;
   const setPopup = useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(1);
@@ -60,61 +60,61 @@ const ApplicationTile = (props) => {
   // const appliedOn = new Date(application.dateOfApplication);
   // const joinedOn = new Date(application.dateOfJoining);
 
-  const fetchRating = () => {
-    axios
-      .get(`${apiList.rating}?id=${application.job._id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        setRating(response.data.rating);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        // console.log(err.response);
-        console.log(err.response.data);
-        setPopup({
-          open: true,
-          severity: "error",
-          message: "Error",
-        });
-      });
-  };
+  // const fetchRating = () => {
+  //   axios
+  //     .get(`${apiList.rating}?id=${application.job._id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setRating(response.data.rating);
+  //       console.log(response.data);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err.response);
+  //       console.log(err.response.data);
+  //       setPopup({
+  //         open: true,
+  //         severity: "error",
+  //         message: "Error",
+  //       });
+  //     });
+  // };
 
-  const changeRating = () => {
-    axios
-      .put(
-        apiList.rating,
-        { rating: rating, jobId: application.job._id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        setPopup({
-          open: true,
-          severity: "success",
-          message: "Rating updated successfully",
-        });
-        fetchRating();
-        setOpen(false);
-      })
-      .catch((err) => {
-        // console.log(err.response);
-        console.log(err);
-        setPopup({
-          open: true,
-          severity: "error",
-          message: err.response.data.message,
-        });
-        fetchRating();
-        setOpen(false);
-      });
-  };
+  // const changeRating = () => {
+  //   axios
+  //     .put(
+  //       apiList.rating,
+  //       { rating: rating, jobId: application.job._id },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setPopup({
+  //         open: true,
+  //         severity: "success",
+  //         message: "Rating updated successfully",
+  //       });
+  //       fetchRating();
+  //       setOpen(false);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err.response);
+  //       console.log(err);
+  //       setPopup({
+  //         open: true,
+  //         severity: "error",
+  //         message: err.response.data.message,
+  //       });
+  //       fetchRating();
+  //       setOpen(false);
+  //     });
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -135,7 +135,7 @@ const ApplicationTile = (props) => {
       <Grid container>
         <Grid container item xs={9} spacing={1} direction="column">
           <Grid item>
-            <Typography variant="h5">{"ashdasjk"}</Typography>
+            <Typography variant="h5">{job.title}</Typography>
           </Grid>
           {/* <Grid item>Posted By: {application.recruiter.name}</Grid> */}
           <Grid container item direction="row" alignItems="center">
@@ -149,11 +149,11 @@ const ApplicationTile = (props) => {
                   borderRadius: "4px",
                 }}
               >
-                {"sdasjkjh"}
+                {job.type}
               </div>
             </Grid>
             <Grid item style={{ color: "#767F8C" }}>
-              Salary: ${871289739}
+              Salary: ${job.salary}
             </Grid>
           </Grid>
           <Grid item direction="row" container alignItems="center">
@@ -256,7 +256,7 @@ const ApplicationTile = (props) => {
             variant="contained"
             color="primary"
             style={{ padding: "10px 50px" }}
-            onClick={() => changeRating()}
+            // onClick={() => changeRating()}
           >
             Submit
           </Button>
@@ -268,7 +268,7 @@ const ApplicationTile = (props) => {
 
 const Applications = (props) => {
   const setPopup = useContext(SetPopupContext);
-  const [applications, setApplications] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
     getData();
@@ -276,14 +276,14 @@ const Applications = (props) => {
 
   const getData = () => {
     axios
-      .get(apiList.applications, {
+      .get(apiList.jobs, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
         console.log(response.data);
-        setApplications(response.data);
+        setJobs(response.data);
       })
       .catch((err) => {
         // console.log(err.response);
@@ -313,25 +313,11 @@ const Applications = (props) => {
         justify="center"
         spacing={2}
       >
-        <Grid item xs={4}>
-          <ApplicationTile />
-        </Grid>
-        <Grid item xs={4}>
-          <ApplicationTile />
-        </Grid>
-        <Grid item xs={4}>
-          <ApplicationTile />
-        </Grid>
-        <Grid item xs={4}>
-          <ApplicationTile />
-        </Grid>
-        <Grid item xs={4}>
-          <ApplicationTile />
-        </Grid>
-        <Grid item xs={4}>
-          <ApplicationTile />
-        </Grid>
-        
+        {jobs.map((job) => (
+          <Grid item xs={4}>
+            <ApplicationTile job={job}/>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   );
