@@ -47,6 +47,23 @@ router.post("/jobs", jwtAuth, (req, res) => {
       res.status(400).json(err);
     });
 });
+// get job detail
+
+router.get("/job/:id", (req, res) => {
+  Job.findOne({ _id: req.params.id })
+    .then((job) => {
+      if (job == null) {
+        res.status(400).json({
+          message: "Job does not exist",
+        });
+        return;
+      }
+      res.json(job);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
 
 // to get all the jobs [pagination] [for recruiter personal and for everyone]
 router.get("/jobs", jwtAuth, (req, res) => {
