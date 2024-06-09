@@ -18,6 +18,7 @@ import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import isAuth, { userType } from "./lib/isAuth";
 import { io } from "socket.io-client";
+import DetailJob from "./component/DetailJob";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -60,6 +61,7 @@ function App() {
               <Route exact path="/logout" element={<Logout />} />
               <Route exact path="/home" element={<Home />} />
               <Route exact path="/applications" element={<Applications />} />
+              <Route exact path="/detailJob" element={<DetailJob />} />
               <Route
                 exact
                 path="/profile"
