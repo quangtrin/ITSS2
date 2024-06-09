@@ -8,6 +8,7 @@ const Recruiter = require("../db/Recruiter");
 const Job = require("../db/Job");
 const Application = require("../db/Application");
 const Rating = require("../db/Rating");
+const Chat = require("../db/Chat");
 
 const router = express.Router();
 
@@ -1395,6 +1396,57 @@ router.get("/rating", jwtAuth, (req, res) => {
       rating: rating.rating,
     });
   });
+});
+
+router.post("/chat", jwtAuth, (req, res) => {
+  const user = req.user;
+  const data = req.body;
+  const chat = new Chat({
+    sender: user._id,
+    receiver: data.receiver,
+    content: data.content,
+  });
+  chat
+    .save()
+    .then(() => {
+      res.json({
+        message: "Message sent successfully",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+router.get("/chat/:otherUser", jwtAuth, (req, res) => {
+  const user = req.user;
+  const otherUser = req.params.otherUser;
+  Chat.find({
+    $or: [
+      { sender: user._id, receiver: otherUser },
+      { sender: otherUser, receiver: user._id },
+    ],
+  })
+    .then((chats) => {
+      res.json(chats);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.get("/chats", jwtAuth, (req, res) => {
+  const user = req.user;
+  Chat.find({
+    $or: [{ sender: user._id }, { receiver: user._id }],
+  })
+    .then((chats) => {
+      res.json(chats);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
 // Application.findOne({
