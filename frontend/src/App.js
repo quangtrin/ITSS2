@@ -19,6 +19,7 @@ import MessagePopup from "./lib/MessagePopup";
 import isAuth, { userType } from "./lib/isAuth";
 import { io } from "socket.io-client";
 import DetailJob from "./component/DetailJob";
+import ListCv from "./component/ListCv";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -75,6 +76,7 @@ function App() {
               />
               <Route exact path="/addjob" element={<CreateJobs />} />
               <Route exact path="/myjobs" element={<MyJobs />} />
+              <Route exact path="/listcv" element={<ListCv />} />
               <Route
                 exact
                 path="/job/applications/:jobId"
