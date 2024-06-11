@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     textTransform: "uppercase",
+    padding: "30px",
   },
   jobTileOuter: {
     padding: "30px",
@@ -49,6 +50,29 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  searchBar: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    position: 'fixed',   
+    width: '100%',
+    top: 60,
+    background: 'white',
+    paddingLeft: '28px !important',
+    paddingRight: '28px !important',
+  },
+  filterBar: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    position: 'fixed',   
+    width: '100%',
+    top: 135,
+    background: 'white',
+    paddingLeft: '28px !important',
+    paddingRight: '14px !important',
+  },
+
 }));
 
 const ApplicationTile = (props) => {
@@ -134,7 +158,7 @@ const ApplicationTile = (props) => {
   return (
     <Paper className={classes.jobTileOuter} elevation={3}>
       <Grid container>
-        <Grid container item xs={9} spacing={1} direction="column">
+        <Grid container item xs={12} spacing={1} direction="row">
           <Grid item>
             <Typography variant="h5">{"ashdasjk"}</Typography>
           </Grid>
@@ -270,7 +294,7 @@ const ApplicationTile = (props) => {
 const Applications = (props) => {
   const setPopup = useContext(SetPopupContext);
   const [applications, setApplications] = useState([]);
-
+  const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const [level, setLevel] = useState("");
@@ -282,7 +306,7 @@ const Applications = (props) => {
   };
 
 const locations = ["Hanoi", "Ho Chi Minh", "Da Nang", "Hai Phong", "Can Tho"];
-const levels = ["Intern", "Junior", "Mid-level", "Senior", "Manager"];
+const levels = ["Designer", "Software Engineer", "Project Manager", "Marketing Officer"];
 const contractTypes = ["Full-time", "Part-time", "Contract", "Temporary", "Internship"];
 const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $30000"];
 
@@ -313,8 +337,8 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
   };
 
   return (
-    <Grid container direction="column" spacing={2}>
-      <Grid item xs={12}>
+    <Grid container direction="row" spacing={2}>
+      <Grid item xs={12} className={classes.searchBar}>
         <TextField
           label="Search"
           variant="outlined"
@@ -332,13 +356,25 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
           }}
         />
       </Grid>
-      <Grid item container xs={12} spacing={2}>
-        <Grid item xs={3}>
+
+      <Grid container direction="row" spacing={2} className={classes.filterBar}>
+      <Grid item xs={3} >
           <FormControl variant="outlined" fullWidth>
-            <InputLabel>All Locations</InputLabel>
+          {!location && <InputLabel>All Locations</InputLabel>}
             <Select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left"
+                },
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left"
+                },
+                getContentAnchorEl: null
+              }}
             >
               {locations.map((location) => (
         <MenuItem value={location}>{location}</MenuItem>
@@ -348,10 +384,21 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
         </Grid>
         <Grid item xs={3}>
           <FormControl variant="outlined" fullWidth>
-            <InputLabel>All Levels</InputLabel>
+          {!level && <InputLabel>All Levels</InputLabel>}
             <Select
               value={level}
               onChange={(e) => setLevel(e.target.value)}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left"
+                },
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left"
+                },
+                getContentAnchorEl: null
+              }}
             >
               {levels.map((level) => (
         <MenuItem value={level}>{level}</MenuItem>
@@ -361,10 +408,21 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
         </Grid>
         <Grid item xs={3}>
           <FormControl variant="outlined" fullWidth>
-            <InputLabel>All Contract Types</InputLabel>
+          {!contractType && <InputLabel>All Contract Types</InputLabel>}
             <Select
               value={contractType}
               onChange={(e) => setContractType(e.target.value)}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left"
+                },
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left"
+                },
+                getContentAnchorEl: null
+              }}
             >
       {contractTypes.map((contractType) => (
         <MenuItem value={contractType}>{contractType}</MenuItem>
@@ -374,10 +432,21 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
         </Grid>
         <Grid item xs={3}>
           <FormControl variant="outlined" fullWidth>
-            <InputLabel>Salary</InputLabel>
+            {!salary && <InputLabel>Salary</InputLabel>}
             <Select
               value={salary}
               onChange={(e) => setSalary(e.target.value)}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left"
+                },
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left"
+                },
+                getContentAnchorEl: null
+              }}
             >
       {salaries.map((salary) => (
         <MenuItem value={salary}>{salary}</MenuItem>
@@ -386,18 +455,20 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
           </FormControl>
         </Grid>
       </Grid>
+
       <Grid
       item
       direction="column"
       alignItems="center"
-      style={{ padding: "30px", minHeight: "93vh" }}
+      style={{ padding: "30px", minHeight: "93vh", paddingTop: "150px", width: "100%"
+       }}
     >
       <Grid
         container
         item
-        xs
+        xs 
         direction="row"
-        style={{ width: "100%" }}
+        style={{ width: "100%"}}
         // alignItems="stretch"
         justify="center"
         spacing={2}
@@ -420,7 +491,21 @@ const salaries = ["Under $10000", "$10000 - $20000", "$20000 - $30000", "Over $3
         <Grid item xs={4}>
           <ApplicationTile />
         </Grid>
-        
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
+        <Grid item xs={4}>
+          <ApplicationTile />
+        </Grid>
       </Grid>
     </Grid>
     </Grid>
