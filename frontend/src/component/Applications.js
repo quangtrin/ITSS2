@@ -25,6 +25,7 @@ import MapPin from "../assets/MapPin.png";
 import { SetPopupContext } from "../App";
 
 import apiList from "../lib/apiList";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -81,7 +82,7 @@ const ApplicationTile = (props) => {
   const setPopup = useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(1);
-
+  const navigate = useNavigate();
   // const appliedOn = new Date(application.dateOfApplication);
   // const joinedOn = new Date(application.dateOfJoining);
 
@@ -156,7 +157,11 @@ const ApplicationTile = (props) => {
   };
 
   return (
-    <Paper className={classes.jobTileOuter} elevation={3}>
+    <Paper
+      className={`${classes.jobTileOuter} cursor-pointer`}
+      elevation={3}
+      onClick={() => navigate(`/detailjob/${job._id}`)}
+    >
       <Grid container>
         <Grid container item xs={12} spacing={1} direction="row">
           <Grid item>

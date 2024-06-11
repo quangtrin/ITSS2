@@ -61,7 +61,7 @@ function App() {
               <Route exact path="/logout" element={<Logout />} />
               <Route exact path="/home" element={<Home />} />
               <Route exact path="/applications" element={<Applications />} />
-              <Route exact path="/detailJob" element={<DetailJob />} />
+              <Route exact path="/detailJob/:id" element={<DetailJob />} />
               <Route
                 exact
                 path="/profile"
