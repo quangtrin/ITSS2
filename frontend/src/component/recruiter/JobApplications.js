@@ -338,11 +338,12 @@ const FilterPopup = (props) => {
 };
 
 const ApplicationTile = (props) => {
+  console.log(props);
   const classes = useStyles();
   const { application, getData } = props;
   const setPopup = useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
-
+  console.log(application);
   const appliedOn = new Date(application.dateOfApplication);
 
   const handleClose = () => {
