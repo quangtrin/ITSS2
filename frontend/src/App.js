@@ -20,6 +20,10 @@ import isAuth, { userType } from "./lib/isAuth";
 import { io } from "socket.io-client";
 import DetailJob from "./component/DetailJob";
 import ListCv from "./component/ListCv";
+// import { Popover } from "@material-ui/core";
+import { Popover } from "antd";
+import ChatPopup from "./component/ChatPopup";
+import ChatWindow from "./component/ChatWindow";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -44,8 +48,11 @@ function App() {
     message: "",
   });
 
+  const [openListMessage, setOpenListMessage] = useState(false);
+  const [openMessage, setOpenMessage] = useState(false);
+
   useEffect(() => {
-    const socket = io("http://localhost:4444")
+    const socket = io("http://localhost:4444");
   }, []);
   return (
     <BrowserRouter>
@@ -98,6 +105,34 @@ function App() {
           severity={popup.severity}
           message={popup.message}
         />
+        <div className=" fixed bottom-10 right-10">
+          <Popover
+            open={openListMessage}
+            trigger={"click"}
+            content={
+              <ChatPopup
+                setOpenMessage={setOpenMessage}
+                openMessage={openMessage}
+                setOpenListMessage={setOpenListMessage}
+              />
+            }
+            onOpenChange={(value) => setOpenListMessage(value)}
+          >
+            <div onClick={() => setOpenListMessage(!openListMessage)}>
+              <img
+                width={50}
+                alt=""
+                src="https://cdn-icons-png.flaticon.com/512/4138/4138138.png"
+              />
+            </div>
+          </Popover>
+          <Popover
+            open={openMessage}
+            content={<ChatWindow />}
+            onOpenChange={(value) => setOpenMessage(value)}
+            trigger={"click"}
+          ></Popover>
+        </div>
       </SetPopupContext.Provider>
     </BrowserRouter>
   );

@@ -11,6 +11,7 @@ const apiList = {
   user: `${server}/api/user`,
   applicants: `${server}/api/applicants`,
   detailJob: (id) => `${server}/api/job/${id}`,
+  chats: `${server}/api/chats`,
 };
 
 export default apiList;

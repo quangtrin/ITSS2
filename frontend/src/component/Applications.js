@@ -21,11 +21,11 @@ import Rating from "@material-ui/lab/Rating";
 import axios from "axios";
 import EmployersLogo from "../assets/EmployersLogo.png";
 import MapPin from "../assets/MapPin.png";
+import { useNavigate } from "react-router-dom";
 
 import { SetPopupContext } from "../App";
 
 import apiList from "../lib/apiList";
-import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -80,9 +80,9 @@ const ApplicationTile = (props) => {
   const classes = useStyles();
   const { job } = props;
   const setPopup = useContext(SetPopupContext);
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(1);
-  const navigate = useNavigate();
   // const appliedOn = new Date(application.dateOfApplication);
   // const joinedOn = new Date(application.dateOfJoining);
 

@@ -1441,7 +1441,7 @@ router.get("/chats", jwtAuth, (req, res) => {
   const user = req.user;
   Chat.find({
     $or: [{ sender: user._id }, { receiver: user._id }],
-  })
+  }).populate('receiver').populate('sender').sort({ date: -1 })
     .then((chats) => {
       res.json(chats);
     })

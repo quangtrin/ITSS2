@@ -5,10 +5,11 @@ const passportConfig = require("./lib/passportConfig");
 const cors = require("cors");
 const fs = require("fs");
 const { connectSocket } = require("./socket");
+require('dotenv').config()
 
 // MongoDB
 mongoose
-  .connect("mongodb://localhost:27017", {
+  .connect(process.env.MONGO_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
