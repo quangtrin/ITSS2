@@ -73,7 +73,7 @@ const ApplicationTile = (props) => {
       })
       .catch((err) => {
         // console.log(err.response);
-        console.log(err.response.data);
+        console.log(err.response?.data);
         setPopup({
           open: true,
           severity: "error",
@@ -275,7 +275,7 @@ const Applications = (props) => {
       })
       .catch((err) => {
         // console.log(err.response);
-        console.log(err.response.data);
+        console.log(err.response?.data);
         setPopup({
           open: true,
           severity: "error",
