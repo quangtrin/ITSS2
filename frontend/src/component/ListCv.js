@@ -6,18 +6,9 @@ const { Search } = Input;
 const ListCv = () => {
     const data = [
         {
-            userImage: 'https://i.pinimg.com/236x/29/c3/20/29c3201174e3c76151a1ba47432dd9b8.jpg',
-            userName: 'Nguyet Lee',
-            jobLevel: 'UXUI Designer',
-            phoneNumber: '0123456789',
-            companyImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReDf5TOy1BLHTd4XHKHbSeKyYmr82upgnb8Q&s',
-            experience: '4 years',
-            companyLocation: 'Ha Noi'
-        },
-        {
-            userImage: 'https://i.pinimg.com/236x/29/c3/20/29c3201174e3c76151a1ba47432dd9b8.jpg',
-            userName: 'Nguyet Lee',
-            jobLevel: 'UXUI Designer',
+            userImage: 'https://api.dicebear.com/7.x/miniavs/svg?seed=1',
+            userName: 'quang',
+            jobLevel: 'Developer',
             phoneNumber: '0123456789',
             companyImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReDf5TOy1BLHTd4XHKHbSeKyYmr82upgnb8Q&s',
             experience: '4 years',
