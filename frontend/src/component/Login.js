@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Grid,
   TextField,
@@ -37,11 +37,6 @@ const Login = (props) => {
 
   const [loggedin, setLoggedin] = useState(isAuth());
 
-  const [loginDetails, setLoginDetails] = useState({
-    email: "",
-    password: "123456",
-  });
-
   const [inputErrorHandler, setInputErrorHandler] = useState({
     email: {
       error: false,
@@ -53,31 +48,16 @@ const Login = (props) => {
     },
   });
 
-  const handleInput = (key, value) => {
-    setLoginDetails({
-      ...loginDetails,
-      [key]: value,
-    });
-  };
-
-  const handleInputError = (key, status, message) => {
-    setInputErrorHandler({
-      ...inputErrorHandler,
-      [key]: {
-        error: status,
-        message: message,
-      },
-    });
-  };
-
-  const handleLogin = () => {
+  const handleLogin = (role) => {
     const verified = !Object.keys(inputErrorHandler).some((obj) => {
       return inputErrorHandler[obj].error;
     });
+    const email =
+      role === "recruiter" ? "quangceo@gmail.com" : "quang@gmail.com";
     if (verified) {
       const details = {
-        email: loginDetails.email + "@gmail.com",
-        password: loginDetails.password,
+        email: email,
+        password: "123456",
       };
       axios
         .post(apiList.login, details)
@@ -90,8 +70,10 @@ const Login = (props) => {
             severity: "success",
             message: "Logged in successfully",
           });
-          userType()  === "recruiter" ? history("/myjobs") : history("/applications");
-          console.log(response);
+          userType() === "recruiter"
+            ? history("/listcv")
+            : history("/applications");
+            props.setChatFeature(true);
         })
         .catch((err) => {
           setPopup({
@@ -110,46 +92,53 @@ const Login = (props) => {
     }
   };
 
-  return loggedin ? (
-    <Redirect to="/" />
-  ) : (
-    <Paper elevation={3} className={classes.body}>
-      <Grid container direction="column" spacing={4} alignItems="center">
-        {/* <Grid item>
-          <Typography variant="h3" component="h2">
-            Login
-          </Typography>
-        </Grid> */}
-        <Grid item>
-          <EmailInput
-            label="Email"
-            value={loginDetails.email}
-            onChange={(event) => handleInput("email", event.target.value)}
-            inputErrorHandler={inputErrorHandler}
-            handleInputError={handleInputError}
-            className={classes.inputBox}
-          />
-        </Grid>
-        {/* <Grid item>
-          <PasswordInput
-            label="Password"
-            value={loginDetails.password}
-            onChange={(event) => handleInput("password", event.target.value)}
-            className={classes.inputBox}
-          />
-        </Grid> */}
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleLogin()}
-            className={classes.submitButton}
-          >
-            Login
-          </Button>
-        </Grid>
-      </Grid>
-    </Paper>
+  useEffect(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("type");
+  }, []);
+
+  return (
+    // <Paper elevation={3} className={classes.body}>
+    //   <Grid container direction="column" spacing={4} alignItems="center">
+    //     {/* <Grid item>
+    //       <Typography variant="h3" component="h2">
+    //         Login
+    //       </Typography>
+    //     </Grid> */}
+    //     <Grid item>
+    //       <EmailInput
+    //         label="Email"
+    //         value={loginDetails.email}
+    //         onChange={(event) => handleInput("email", event.target.value)}
+    //         inputErrorHandler={inputErrorHandler}
+    //         handleInputError={handleInputError}
+    //         className={classes.inputBox}
+    //       />
+    //     </Grid>
+    //     {/* <Grid item>
+    //       <PasswordInput
+    //         label="Password"
+    //         value={loginDetails.password}
+    //         onChange={(event) => handleInput("password", event.target.value)}
+    //         className={classes.inputBox}
+    //       />
+    //     </Grid> */}
+    //     <Grid item>
+    //       <Button
+    //         variant="contained"
+    //         color="primary"
+    //         onClick={() => handleLogin()}
+    //         className={classes.submitButton}
+    //       >
+    //         Login
+    //       </Button>
+    //     </Grid>
+    //   </Grid>
+    // </Paper>
+    <>
+      <Button onClick={() => handleLogin("applicant")}>applicant</Button>
+      <Button onClick={() => handleLogin("recruiter")}>recruiter</Button>
+    </>
   );
 };
 

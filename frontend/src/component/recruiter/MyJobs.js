@@ -91,7 +91,6 @@ const JobTile = (props) => {
   };
 
   const handleDelete = () => {
-    console.log(job._id);
     axios
       .delete(`${apiList.jobs}/${job._id}`, {
         headers: {

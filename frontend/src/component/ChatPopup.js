@@ -16,13 +16,15 @@ const ChatPopup = ({ setOpenMessage, openMessage, setOpenListMessage }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }); // fetch user data from API
-      console.log(res.data);
       setUsers([
         {
-          name: userType() === "recruiter" ? "CEO" : "Quang" ,
+          name: userType() === "recruiter" ? "Quang" : "quangceo",
           lastMessage: res.data?.pop(),
           timestamp: "1 giờ",
-          avatar: "path/to/avatar2.jpg",
+          avatar:
+            userType() === "recruiter"
+              ? "https://api.dicebear.com/7.x/miniavs/svg?seed=1"
+              : "https://inhoangkien.vn/wp-content/uploads/2023/04/Logo-DH-Bach-Khoa-HN-HUST-anh-bia-01.jpg",
         },
       ]);
     };

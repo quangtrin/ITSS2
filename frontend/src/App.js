@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { BrowserRouter, Routes as Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes as Switch, Route, json } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
 
 import Welcome, { ErrorPage } from "./component/Welcome";
@@ -42,6 +42,8 @@ export const SetPopupContext = createContext();
 
 function App() {
   const classes = useStyles();
+  const [socket, setSocket] = useState();
+  const [chatFeature, setChatFeature] = useState(false);
   const [popup, setPopup] = useState({
     open: false,
     severity: "",
@@ -53,18 +55,23 @@ function App() {
 
   useEffect(() => {
     const socket = io("http://localhost:4444");
+    setSocket(socket);
   }, []);
+
+  useEffect(() => {
+    setChatFeature(false);
+  }, []);
+
   return (
     <BrowserRouter>
       <SetPopupContext.Provider value={setPopup}>
         <Grid container direction="column">
           <Grid item xs>
-            <Navbar />
+            <Navbar setChatFeature={setChatFeature}/>
           </Grid>
           <Grid item className={classes.body}>
             <Switch>
-              <Route exact path="/" element={<Login />} />
-              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/" element={<Login setChatFeature={setChatFeature}/>} />
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/logout" element={<Logout />} />
               <Route exact path="/home" element={<Home />} />
@@ -105,34 +112,36 @@ function App() {
           severity={popup.severity}
           message={popup.message}
         />
-        <div className=" fixed bottom-10 right-10">
-          <Popover
-            open={openListMessage}
-            trigger={"click"}
-            content={
-              <ChatPopup
-                setOpenMessage={setOpenMessage}
-                openMessage={openMessage}
-                setOpenListMessage={setOpenListMessage}
-              />
-            }
-            onOpenChange={(value) => setOpenListMessage(value)}
-          >
-            <div onClick={() => setOpenListMessage(!openListMessage)}>
-              <img
-                width={50}
-                alt=""
-                src="https://cdn-icons-png.flaticon.com/512/4138/4138138.png"
-              />
-            </div>
-          </Popover>
-          <Popover
-            open={openMessage}
-            content={<ChatWindow />}
-            onOpenChange={(value) => setOpenMessage(value)}
-            trigger={"click"}
-          ></Popover>
-        </div>
+        {chatFeature && (
+          <div className=" fixed bottom-10 right-10">
+            <Popover
+              open={openListMessage}
+              trigger={"click"}
+              content={
+                <ChatPopup
+                  setOpenMessage={setOpenMessage}
+                  openMessage={openMessage}
+                  setOpenListMessage={setOpenListMessage}
+                />
+              }
+              onOpenChange={(value) => setOpenListMessage(value)}
+            >
+              <div onClick={() => setOpenListMessage(!openListMessage)}>
+                <img
+                  width={50}
+                  alt=""
+                  src="https://cdn-icons-png.flaticon.com/512/4138/4138138.png"
+                />
+              </div>
+            </Popover>
+            <Popover
+              open={openMessage}
+              content={<ChatWindow socket={socket} />}
+              onOpenChange={(value) => setOpenMessage(value)}
+              trigger={"click"}
+            ></Popover>
+          </div>
+        )}
       </SetPopupContext.Provider>
     </BrowserRouter>
   );

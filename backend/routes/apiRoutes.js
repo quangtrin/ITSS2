@@ -37,7 +37,6 @@ router.post("/jobs", jwtAuth, (req, res) => {
     duration: data.duration,
     salary: data.salary,
     rating: data.rating,
-    
   });
 
   job
@@ -1399,9 +1398,12 @@ router.get("/rating", jwtAuth, (req, res) => {
   });
 });
 
-router.post("/chat", jwtAuth, (req, res) => {
+router.post("/chat", jwtAuth, async (req, res) => {
   const user = req.user;
   const data = req.body;
+  const receiver = await User.findOne({
+    _id: data.receiver,
+  });
   const chat = new Chat({
     sender: user._id,
     receiver: data.receiver,
@@ -1409,9 +1411,13 @@ router.post("/chat", jwtAuth, (req, res) => {
   });
   chat
     .save()
-    .then(() => {
+    .then((result) => {
       res.json({
-        message: "Message sent successfully",
+        message: {
+          ...result._doc,
+          sender: user,
+          receiver: receiver,
+        },
       });
     })
     .catch((err) => {
@@ -1441,7 +1447,10 @@ router.get("/chats", jwtAuth, (req, res) => {
   const user = req.user;
   Chat.find({
     $or: [{ sender: user._id }, { receiver: user._id }],
-  }).populate('receiver').populate('sender').sort({ date: -1 })
+  })
+    .populate("receiver")
+    .populate("sender")
+    .sort({ date: -1 })
     .then((chats) => {
       res.json(chats);
     })
