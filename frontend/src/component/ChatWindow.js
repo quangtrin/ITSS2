@@ -7,12 +7,13 @@ import { useEffect } from "react";
 import axios from "axios";
 import apiList from "../lib/apiList";
 import { userType } from "../lib/isAuth";
-import io from "socket.io-client";
+import { Spin } from "antd";
 
 const ChatWindow = ({ socket }) => {
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState();
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(true);
   const lastMessageRef = React.useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ const ChatWindow = ({ socket }) => {
 
   useEffect(() => {
     const fetchMessages = async () => {
+      setLoading(true);
       const res = await axios.get(apiList.chats, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -49,6 +51,7 @@ const ChatWindow = ({ socket }) => {
           ? lastMessage.receiver
           : lastMessage.sender
       );
+      setLoading(false);
     };
     fetchMessages();
   }, []);
@@ -64,7 +67,7 @@ const ChatWindow = ({ socket }) => {
     if (lastMessageRef)
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messages, lastMessageRef]);
-  return (
+  return !loading ? (
     <div className="chat-window">
       <div className="chat-header">
         <img src={receiver?.avatar} alt={receiver?.name} className="avatar" />
@@ -95,6 +98,10 @@ const ChatWindow = ({ socket }) => {
           }}
         />
       </div>
+    </div>
+  ) : (
+    <div>
+      <Spin />
     </div>
   );
 };

@@ -11,10 +11,12 @@ import apiList from "../lib/apiList";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ApplyModal from "./ApplyModal";
+import { Spin } from "antd";
 const DetailJob = () => {
   const jobID = useParams().id;
   const [job, setJob] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -24,15 +26,16 @@ const DetailJob = () => {
     setIsPopupOpen(false);
   };
   const fetchJob = async () => {
+    setLoading(true);
     const res = await axios.get(apiList.detailJob(jobID));
     setJob(res.data);
-    console.log(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     fetchJob();
   }, []);
 
-  return (
+  return !loading ? (
     <div
       className=" w-9/12 flex flex-col gap-4"
       style={{ padding: "10px 50px" }}
@@ -148,6 +151,10 @@ const DetailJob = () => {
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div>
+      <Spin />
     </div>
   );
 };
