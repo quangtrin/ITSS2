@@ -14,9 +14,9 @@ router.post("/uploadCV", async (req, res) => {
   const { userId, recruiterId, jobId, sop, resumeUrl } = req.body; // Extract data from request body
 
   const applicationData = {
-    userId: '665ebf5b1f46368699d943a3',
-    recruiterId: '665ec2581f46368699d943a9',
-    jobId: '665ec2851f46368699d943ab',
+    userId: '666b1a408485c943a4acedb6',
+    recruiterId: '666b1a588485c943a4acedb8',
+    jobId: jobId,
     status: 'applied', // Default status
     sop,
     resume: resumeUrl

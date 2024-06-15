@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form, Input, message, Spin } from 'antd';
+import { Form, Input, message, Spin } from "antd";
 import axios from "axios";
-import * as pdfjsLib from 'pdfjs-dist/webpack';
+import * as pdfjsLib from "pdfjs-dist/webpack";
+import { server } from "../lib/apiList";
 
-const ApplyModal = ({ isOpen, onClose }) => {
+const ApplyModal = ({ isOpen, onClose, jobId }) => {
   const [form] = Form.useForm();
   const [file, setFile] = useState(null);
   const [urlFile, setUrlFile] = useState("");
@@ -12,8 +13,13 @@ const ApplyModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  }
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      setFile(selectedFile);
+    } else {
+      message.error("Vui lòng chọn một tệp PDF");
+    }
+  };
 
   const pdfToImage = async (pdfFile) => {
     const fileReader = new FileReader();
@@ -36,18 +42,28 @@ const ApplyModal = ({ isOpen, onClose }) => {
           viewport: viewport,
         };
 
-        page.render(renderContext).promise.then(() => {
-          canvas.toBlob(blob => {
-            resolve(blob);
-          });
-        }).catch(reject);
+        page
+          .render(renderContext)
+          .promise.then(() => {
+            canvas.toBlob((blob) => {
+              resolve(blob);
+            });
+          })
+          .catch(reject);
       };
     });
-  }
+  };
 
-  const handleUpload = async () => {
+  const handleSubmit = async (values) => {
+    const { sop } = values;
+
+    // if (!urlFile) {
+    //   message.error('Please upload your CV');
+    //   return;
+    // }
+
     if (!file) {
-      message.error('Please select a file to upload');
+      message.error("Please select a file to upload type pdf");
       return;
     }
 
@@ -61,47 +77,41 @@ const ApplyModal = ({ isOpen, onClose }) => {
       data.append("upload_preset", "yb8k2xvj");
       data.append("cloud_name", "dsjiwboyz");
 
-      const res = await fetch("https://api.cloudinary.com/v1_1/dsjiwboyz/image/upload", {
-        method: "post",
-        body: data,
-      });
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dsjiwboyz/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
       const resumeData = await res.json();
-      setUrlFile(resumeData.secure_url);
-      message.success('File uploaded successfully');
+      // setUrlFile(resumeData.secure_url);
+      try {
+        await axios.post(`${server}/upload/uploadCV`, {
+          resumeUrl: resumeData.secure_url,
+          jobId: jobId,
+          sop: sop,
+        });
+
+        message.success("Application submitted successfully");
+        form.resetFields();
+        setUrlFile("");
+        onClose();
+      } catch (error) {
+        console.error("Error submitting application:", error);
+        message.error("Error submitting application");
+      } finally {
+        setLoading(false);
+      }
+      message.success("File uploaded successfully");
     } catch (error) {
       console.error("Error uploading file:", error);
-      message.error('Error uploading file');
+      message.error("Error uploading file");
     } finally {
       setLoading(false);
-    }
-  }
-
-  const handleSubmit = async (values) => {
-    const { sop } = values;
-
-    if (!urlFile) {
-      message.error('Please upload your CV');
-      return;
     }
 
     setLoading(true);
-
-    try {
-      await axios.post('http://localhost:4444/upload/uploadCV', {
-        resumeUrl: urlFile,
-        sop: sop,
-      });
-
-      message.success('Application submitted successfully');
-      form.resetFields();
-      setUrlFile("");
-      onClose();
-    } catch (error) {
-      console.error("Error submitting application:", error);
-      message.error('Error submitting application');
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -119,7 +129,11 @@ const ApplyModal = ({ isOpen, onClose }) => {
           </div>
           <div className="flex justify-center">
             <div className="w-2/3">
-              <Form.Item name="sop" label="Gửi đôi lời tới công ty nhé!" rules={[{ required: true, message: 'Please write something' }]}>
+              <Form.Item
+                name="sop"
+                label="Gửi đôi lời tới công ty nhé!"
+                rules={[{ required: true, message: "Please write something" }]}
+              >
                 <Input.TextArea
                   placeholder="Gửi đôi lời tới công ty nhé!"
                   rows={4}
@@ -135,14 +149,6 @@ const ApplyModal = ({ isOpen, onClose }) => {
                   onChange={handleFileChange}
                   disabled={loading}
                 />
-                <button
-                  type="button"
-                  className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  onClick={handleUpload}
-                  disabled={loading}
-                >
-                  Upload
-                </button>
               </Form.Item>
             </div>
           </div>

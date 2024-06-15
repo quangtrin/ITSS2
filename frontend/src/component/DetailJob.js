@@ -58,7 +58,7 @@ const DetailJob = () => {
           <span onClick={openPopup}>Apply now</span>
           <FaArrowRight />
         </div>
-        <ApplyModal isOpen={isPopupOpen} onClose={closePopup} />
+        <ApplyModal isOpen={isPopupOpen} onClose={closePopup} jobId={jobID}/>
       </div>
       <div className=" flex justify-between gap-4 ">
         <div className=" flex flex-col gap-4 flex-1">
