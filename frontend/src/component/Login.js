@@ -69,11 +69,11 @@ const Login = (props) => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("type", response.data.type);
           setLoggedin(isAuth());
-          setPopup({
-            open: true,
-            severity: "success",
-            message: "Logged in successfully",
-          });
+          // setPopup({
+          //   open: true,
+          //   severity: "success",
+          //   message: "Logged in successfully",
+          // });
           userType() === "recruiter"
             ? history("/listcv")
             : history("/applications");
