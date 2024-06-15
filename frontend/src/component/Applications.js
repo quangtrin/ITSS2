@@ -108,6 +108,61 @@ const ApplicationTile = (props) => {
   //     });
   // };
 
+  // const fetchRating = () => {
+  //   axios
+  //     .get(`${apiList.rating}?id=${application.job._id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setRating(response.data.rating);
+  //       console.log(response.data);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err.response);
+  //       console.log(err.response?.data);
+  //       setPopup({
+  //         open: true,
+  //         severity: "error",
+  //         message: "Error",
+  //       });
+  //     });
+  // };
+
+  // const changeRating = () => {
+  //   axios
+  //     .put(
+  //       apiList.rating,
+  //       { rating: rating, jobId: application.job._id },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setPopup({
+  //         open: true,
+  //         severity: "success",
+  //         message: "Rating updated successfully",
+  //       });
+  //       fetchRating();
+  //       setOpen(false);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err.response);
+  //       console.log(err);
+  //       setPopup({
+  //         open: true,
+  //         severity: "error",
+  //         message: err.response.data.message,
+  //       });
+  //       fetchRating();
+  //       setOpen(false);
+  //     });
+  // };
   // const changeRating = () => {
   //   axios
   //     .put(
@@ -343,7 +398,7 @@ const Applications = (props) => {
       })
       .catch((err) => {
         // console.log(err.response);
-        console.log(err.response.data);
+        console.log(err.response?.data);
         setPopup({
           open: true,
           severity: "error",

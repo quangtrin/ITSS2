@@ -1,4 +1,4 @@
-export const server = "https://itss2-backend-i5g7.onrender.com";
+export const server = "https://itss2-backend-i5g7.onrender.com"; 
 
 const apiList = {
   login: `${server}/auth/login`,
