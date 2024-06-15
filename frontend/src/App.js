@@ -59,7 +59,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setChatFeature(false);
+    setChatFeature(localStorage.getItem("token") ? true : false);
   }, []);
 
   return (
