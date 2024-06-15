@@ -54,11 +54,14 @@ const DetailJob = () => {
             </div>
           </div>
         </div>
-        <div className=" bg-blue-800 rounded cursor-pointer text-white py-4 px-6 flex gap-2 items-center">
-          <span onClick={openPopup}>Apply now</span>
+        <div
+          onClick={openPopup}
+          className=" bg-blue-800 rounded cursor-pointer text-white py-4 px-6 flex gap-2 items-center"
+        >
+          <span>Apply now</span>
           <FaArrowRight />
         </div>
-        <ApplyModal isOpen={isPopupOpen} onClose={closePopup} jobId={jobID}/>
+        <ApplyModal isOpen={isPopupOpen} onClose={closePopup} jobId={jobID} />
       </div>
       <div className=" flex justify-between gap-4 ">
         <div className=" flex flex-col gap-4 flex-1">

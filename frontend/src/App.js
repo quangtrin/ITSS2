@@ -24,6 +24,7 @@ import ListCv from "./component/ListCv";
 import { Popover } from "antd";
 import ChatPopup from "./component/ChatPopup";
 import ChatWindow from "./component/ChatWindow";
+import { server } from "./lib/apiList";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -54,7 +55,7 @@ function App() {
   const [openMessage, setOpenMessage] = useState(false);
 
   useEffect(() => {
-    const socket = io("http://localhost:4444");
+    const socket = io(server);
     setSocket(socket);
   }, []);
 

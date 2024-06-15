@@ -131,16 +131,16 @@ const ApplyModal = ({ isOpen, onClose, jobId }) => {
             <div className="w-2/3">
               <Form.Item
                 name="sop"
-                label="Gửi đôi lời tới công ty nhé!"
+                label="Please send a few words to the company!"
                 rules={[{ required: true, message: "Please write something" }]}
               >
                 <Input.TextArea
-                  placeholder="Gửi đôi lời tới công ty nhé!"
+                  placeholder="Please send a few words to the company!"
                   rows={4}
                   disabled={loading}
                 />
               </Form.Item>
-              <Form.Item label="CV của bạn">
+              <Form.Item label="Your CV">
                 <input
                   className="pt-2"
                   type="file"
@@ -158,14 +158,14 @@ const ApplyModal = ({ isOpen, onClose, jobId }) => {
               onClick={onClose}
               disabled={loading}
             >
-              Hủy
+              Cancel
             </button>
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
               type="submit"
               disabled={loading}
             >
-              Gửi
+              Send
             </button>
           </div>
         </Form>
