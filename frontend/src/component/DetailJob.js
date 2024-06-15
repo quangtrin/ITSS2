@@ -49,7 +49,7 @@ const DetailJob = () => {
           />
           <div className=" flex flex-col gap-2">
             <div className=" text-2xl font-semibold">{job.title}</div>
-            <div className=" bg-green-600 rounded-[3px] text-white px-2">
+            <div className=" bg-green-600 rounded-[3px] text-white px-2 w-fit">
               {job.jobType}
             </div>
           </div>

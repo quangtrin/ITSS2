@@ -58,16 +58,16 @@ const ChatWindow = ({ socket }) => {
 
   useEffect(() => {
     socket.on("send-message", (message) => {
-      console.log([...messages, message.message]);
       setMessages((messages) => [...messages, message.message]);
     });
   }, [socket]);
 
   useEffect(() => {
-    if (lastMessageRef)
-      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    if (lastMessageRef) {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages, lastMessageRef]);
-  return !loading ? (
+  return (
     <div className="chat-window">
       <div className="chat-header">
         <img src={receiver?.avatar} alt={receiver?.name} className="avatar" />
@@ -98,10 +98,6 @@ const ChatWindow = ({ socket }) => {
           }}
         />
       </div>
-    </div>
-  ) : (
-    <div>
-      <Spin />
     </div>
   );
 };

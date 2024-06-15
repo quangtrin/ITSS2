@@ -67,11 +67,15 @@ function App() {
       <SetPopupContext.Provider value={setPopup}>
         <Grid container direction="column">
           <Grid item xs>
-            <Navbar setChatFeature={setChatFeature}/>
+            <Navbar setChatFeature={setChatFeature} />
           </Grid>
           <Grid item className={classes.body}>
             <Switch>
-              <Route exact path="/" element={<Login setChatFeature={setChatFeature}/>} />
+              <Route
+                exact
+                path="/"
+                element={<Login setChatFeature={setChatFeature} />}
+              />
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/logout" element={<Logout />} />
               <Route exact path="/home" element={<Home />} />
