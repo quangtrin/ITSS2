@@ -34,7 +34,15 @@ const Navbar = (props) => {
   return (
     <div className="appbar-navbar">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography
+          style={{ cursor: "pointer" }}
+          variant="h6"
+          className={classes.title}
+          onClick={() => {
+            props.setChatFeature(false);
+            history("/");
+          }}
+        >
           Find Job
         </Typography>
         {isAuth() ? (
@@ -45,19 +53,19 @@ const Navbar = (props) => {
               </Button> */}
               {/* <Button color="inherit" onClick={() => handleClick("/addjob")}>
                 Add Jobs
-              </Button> */}
+              </Button>
               <Button color="inherit" onClick={() => handleClick("/myjobs")}>
                 My Jobs
-              </Button>
+              </Button> */}
               {/* <Button color="inherit" onClick={() => handleClick("/employees")}>
                 Employees
               </Button> */}
               {/* <Button color="inherit" onClick={() => handleClick("/profile")}>
                 Profile
               </Button> */}
-              <Button color="inherit" onClick={() => handleClick("/logout")}>
+              {/* <Button color="inherit" onClick={() => handleClick("/logout")}>
                 Logout
-              </Button>
+              </Button> */}
             </>
           ) : (
             <>
@@ -73,9 +81,9 @@ const Navbar = (props) => {
               {/* <Button color="inherit" onClick={() => handleClick("/profile")}>
                 Profile
               </Button> */}
-              <Button color="inherit" onClick={() => handleClick("/logout")}>
+              {/* <Button color="inherit" onClick={() => handleClick("/logout")}>
                 Logout
-              </Button>
+              </Button> */}
             </>
           )
         ) : (

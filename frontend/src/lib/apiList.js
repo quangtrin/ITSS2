@@ -1,4 +1,4 @@
-export const server = "http://localhost:4444";
+export const server = "https://localhost:4444";
 
 const apiList = {
   login: `${server}/auth/login`,
@@ -10,6 +10,9 @@ const apiList = {
   rating: `${server}/api/rating`,
   user: `${server}/api/user`,
   applicants: `${server}/api/applicants`,
+  detailJob: (id) => `${server}/api/job/${id}`,
+  chats: `${server}/api/chats`,
+  sendChat: `${server}/api/chat`,
 };
 
 export default apiList;

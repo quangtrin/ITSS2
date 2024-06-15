@@ -37,6 +37,7 @@ const FileUploadInput = (props) => {
   const handleUpload = async (e) => {
     try {
       const data = new FormData();
+
       data.append("file", file);
       data.append("upload_preset", "yb8k2xvj");
       data.append("cloud_name", "dsjiwboyz");

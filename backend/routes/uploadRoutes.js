@@ -14,9 +14,9 @@ router.post("/uploadCV", async (req, res) => {
   const { userId, recruiterId, jobId, sop, resumeUrl } = req.body; // Extract data from request body
 
   const applicationData = {
-    userId,
-    recruiterId,
-    jobId,
+    userId: '665ebf5b1f46368699d943a3',
+    recruiterId: '665ec2581f46368699d943a9',
+    jobId: '665ec2851f46368699d943ab',
     status: 'applied', // Default status
     sop,
     resume: resumeUrl
@@ -25,7 +25,7 @@ router.post("/uploadCV", async (req, res) => {
   try {
     const newApplication = await Applications.create(applicationData);
 
-    console.log("New application inserted:", newApplication);
+    // console.log("New application inserted:", newApplication);
     
     res.status(201).json({ message: "Application inserted successfully" });
   } catch (error) {

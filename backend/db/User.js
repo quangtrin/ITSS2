@@ -19,6 +19,14 @@ let schema = new mongoose.Schema(
       enum: ["recruiter", "applicant"],
       required: true,
     },
+    avatar: {
+      type: String,
+      default: "https://cdn-icons-png.flaticon.com/512/4138/4138138.png",
+    },
+    name: {
+      type: String,
+      required: true,
+    },
   },
   { collation: { locale: "en" } }
 );
