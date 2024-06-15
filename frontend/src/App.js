@@ -54,7 +54,7 @@ function App() {
   const [openMessage, setOpenMessage] = useState(false);
 
   useEffect(() => {
-    const socket = io("http://localhost:4444");
+    const socket = io("https://itss2-backend-i5g7.onrender.com");
     setSocket(socket);
   }, []);
 
