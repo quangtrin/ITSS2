@@ -24,6 +24,7 @@ import ListCv from "./component/ListCv";
 import { Popover } from "antd";
 import ChatPopup from "./component/ChatPopup";
 import ChatWindow from "./component/ChatWindow";
+import { server } from "./lib/apiList";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -54,7 +55,7 @@ function App() {
   const [openMessage, setOpenMessage] = useState(false);
 
   useEffect(() => {
-    const socket = io("https://itss2-backend-i5g7.onrender.com");
+    const socket = io(server);
     setSocket(socket);
   }, []);
 
