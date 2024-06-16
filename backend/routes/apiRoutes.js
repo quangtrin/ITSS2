@@ -1036,6 +1036,21 @@ router.get("/applicants", jwtAuth, (req, res) => {
   }
 });
 
+router.get("/appliedJobs", jwtAuth, (req, res) => {
+  const user = req.user;
+  if (user.type === "applicant") {
+    Application.find({
+      userId: user._id,
+    })
+      .then((applications) => {
+        res.json(applications);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
+});
+
 // to add or update a rating [todo: test]
 router.put("/rating", jwtAuth, (req, res) => {
   const user = req.user;

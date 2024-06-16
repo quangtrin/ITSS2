@@ -1,18 +1,177 @@
-[
-    {
-        "_id": "663fa29b13659b5faf2212ad",
-        "name": "quang",
-        "phone": 123213421,
-        "password": "123456",
-        "role": "Employer",
-        "createdAt": "2024-05-11T16: 53: 47.936+00: 00"
+{
+    "_id": {
+        "$oid": "666d4df9be42da0069dcdc32"
     },
-    {
-        "_id": "663fa29b13659b5faf2212ad",
-        "name": "quangceo",
-        "phone": 123213421,
-        "password": "123456",
-        "role": "Job seeker",
-        "createdAt": "2024-05-11T16: 53: 47.936+00: 00"
-    }
-]
+    "activeApplications": {
+        "$numberInt": "0"
+    },
+    "acceptedCandidates": {
+        "$numberInt": "0"
+    },
+    "skillsets": [
+        "Experience construction, implementation, configuration, and operation of AWS infrastructure as a PROJECT MANAGER",
+        "Experience operating/building in a Linux or Windows environment",
+        "High-level fluency in English"
+    ],
+    "benefits": [
+        "Gain valuable project management experience in Japan",
+        "Work for one of the most well-recognized financial services firms in Japan",
+        "Long-term career potential"
+    ],
+    "rating": {
+        "$numberInt": "-1"
+    },
+    "userId": {
+        "$oid": "666b1a588485c943a4acedb8"
+    },
+    "title": "AWS/Cloud Infrastructure PM",
+    "maxApplicants": {
+        "$numberInt": "100"
+    },
+    "maxPositions": {
+        "$numberInt": "30"
+    },
+    "dateOfPosting": {
+        "$date": {
+            "$numberLong": "1718439417005"
+        }
+    },
+    "deadline": {
+        "$date": {
+            "$numberLong": "1719303360000"
+        }
+    },
+    "jobType": "Full Time",
+    "duration": {
+        "$numberInt": "0"
+    },
+    "salary": {
+        "$numberInt": "4998"
+    },
+    "jobOverview": [],
+    "__v": {
+        "$numberInt": "0"
+    },
+    "jobDescription": "Support the management and operation of the infrastructure directly linked to a Japanese financial services company. Coordinate the configuration and operation of AWS-based infrastructure. Coordinate between end-users and vendors in both Japanese and English.",
+    "address": "Tokyo, Japan",
+    "companyName": "Mitsubishi UFJ Financial Group",
+    "image": "https://www.mufg.jp/dam/cmn/og_image.jpg"
+},
+{
+    "_id": {
+        "$oid": "666d4df9be42da0069dcdc33"
+    },
+    "activeApplications": {
+        "$numberInt": "0"
+    },
+    "acceptedCandidates": {
+        "$numberInt": "0"
+    },
+    "skillsets": [
+        "Experience construction, implementation, configuration, and operation of AWS infrastructure as a PROJECT MANAGER",
+        "Experience operating/building in a Linux or Windows environment",
+        "High-level fluency in English"
+    ],
+    "benefits": [
+        "Gain valuable project management experience in Japan",
+        "Work for one of the most well-recognized financial services firms in Japan",
+        "Long-term career potential"
+    ],
+    "rating": {
+        "$numberInt": "-1"
+    },
+    "userId": {
+        "$oid": "666b1a588485c943a4acedb8"
+    },
+    "title": "AWS/Cloud Infrastructure PM",
+    "maxApplicants": {
+        "$numberInt": "100"
+    },
+    "maxPositions": {
+        "$numberInt": "30"
+    },
+    "dateOfPosting": {
+        "$date": {
+            "$numberLong": "1718439417005"
+        }
+    },
+    "deadline": {
+        "$date": {
+            "$numberLong": "1719303360000"
+        }
+    },
+    "jobType": "Full Time",
+    "duration": {
+        "$numberInt": "0"
+    },
+    "salary": {
+        "$numberInt": "4998"
+    },
+    "jobOverview": [],
+    "__v": {
+        "$numberInt": "0"
+    },
+    "jobDescription": "Support the management and operation of the infrastructure directly linked to a Japanese financial services company. Coordinate the configuration and operation of AWS-based infrastructure. Coordinate between end-users and vendors in both Japanese and English.",
+    "address": "Tokyo, Japan",
+    "companyName": "Sumitomo Mitsui Banking Corporation",
+    "image": "https://media.licdn.com/dms/image/D4E0BAQGN-wJRdIaXdw/company-logo_200_200/0/1688043796789/sumitomo_mitsui_banking_corporation_logo?e=2147483647&v=beta&t=prjf94NHH0zjqysdCJRl0ibbQFW_zpmWce0ade-tGVQ"
+},
+{
+    "_id": {
+        "$oid": "666d4df9be42da0069dcdc34"
+    },
+    "activeApplications": {
+        "$numberInt": "0"
+    },
+    "acceptedCandidates": {
+        "$numberInt": "0"
+    },
+    "skillsets": [
+        "Experience construction, implementation, configuration, and operation of AWS infrastructure as a PROJECT MANAGER",
+        "Experience operating/building in a Linux or Windows environment",
+        "High-level fluency in English"
+    ],
+    "benefits": [
+        "Gain valuable project management experience in Japan",
+        "Work for one of the most well-recognized financial services firms in Japan",
+        "Long-term career potential"
+    ],
+    "rating": {
+        "$numberInt": "-1"
+    },
+    "userId": {
+        "$oid": "666b1a588485c943a4acedb8"
+    },
+    "title": "AWS/Cloud Infrastructure PM",
+    "maxApplicants": {
+        "$numberInt": "100"
+    },
+    "maxPositions": {
+        "$numberInt": "30"
+    },
+    "dateOfPosting": {
+        "$date": {
+            "$numberLong": "1718439417005"
+        }
+    },
+    "deadline": {
+        "$date": {
+            "$numberLong": "1719303360000"
+        }
+    },
+    "jobType": "Full Time",
+    "duration": {
+        "$numberInt": "0"
+    },
+    "salary": {
+        "$numberInt": "4998"
+    },
+    "jobOverview": [],
+    "__v": {
+        "$numberInt": "0"
+    },
+    "jobDescription": "Support the management and operation of the infrastructure directly linked to a Japanese financial services company. Coordinate the configuration and operation of AWS-based infrastructure. Coordinate between end-users and vendors in both Japanese and English.",
+    "address": "Tokyo, Japan",
+    "companyName": "Mizuho Financial Group",
+    "image": "https://www.mizuhogroup.com/binaries/content/gallery/mizuhoglobal/who-we-are/history/mizuho_logo_2020.png"
+}

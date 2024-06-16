@@ -4,7 +4,7 @@ import axios from "axios";
 import * as pdfjsLib from "pdfjs-dist/webpack";
 import { server } from "../lib/apiList";
 
-const ApplyModal = ({ isOpen, onClose, jobId }) => {
+const ApplyModal = ({ isOpen, onClose, jobId, setIsApllied }) => {
   const [form] = Form.useForm();
   const [file, setFile] = useState(null);
   const [urlFile, setUrlFile] = useState("");
@@ -94,6 +94,7 @@ const ApplyModal = ({ isOpen, onClose, jobId }) => {
         });
 
         message.success("Application submitted successfully");
+        setIsApllied(true);
         form.resetFields();
         setUrlFile("");
         onClose();

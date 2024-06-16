@@ -17,6 +17,7 @@ const DetailJob = () => {
   const [job, setJob] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isApllied, setIsApllied] = useState(false);
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -29,11 +30,21 @@ const DetailJob = () => {
     setLoading(true);
     const res = await axios.get(apiList.detailJob(jobID));
     setJob(res.data);
+    const res2 = await axios.get(apiList.appliedJobs, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const appliedJobs = res2.data;
+    const isApplied =
+      appliedJobs?.findIndex((job) => job.jobId === jobID) !== -1;
+    setIsApllied(isApplied);
     setLoading(false);
   };
+
   useEffect(() => {
     fetchJob();
-  }, []);
+  }, [jobID]);
 
   return !loading ? (
     <div
@@ -43,10 +54,7 @@ const DetailJob = () => {
       <div className=" text-2xl font-semibold">Detail Job</div>
       <div className=" flex justify-between items-center">
         <div className=" flex gap-2">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiXN9xSEe8unzPBEQOeAKXd9Q55efGHGB9BA&s"
-            className=" w-[100px]"
-          />
+          <img src={job.image} className=" w-[100px]" />
           <div className=" flex flex-col gap-2">
             <div className=" text-2xl font-semibold">{job.title}</div>
             <div className=" bg-green-600 rounded-[3px] text-white px-2 w-fit">
@@ -54,14 +62,25 @@ const DetailJob = () => {
             </div>
           </div>
         </div>
-        <div
-          onClick={openPopup}
-          className=" bg-blue-800 rounded cursor-pointer text-white py-4 px-6 flex gap-2 items-center"
-        >
-          <span>Apply now</span>
-          <FaArrowRight />
-        </div>
-        <ApplyModal isOpen={isPopupOpen} onClose={closePopup} jobId={jobID} />
+        {isApllied ? (
+          <div className=" cursor-not-allowed bg-gray-500 rounded text-white py-4 px-6 flex gap-2 items-center">
+            <span>Applied</span>
+          </div>
+        ) : (
+          <div
+            onClick={openPopup}
+            className=" bg-blue-800 rounded cursor-pointer text-white py-4 px-6 flex gap-2 items-center"
+          >
+            <span>Apply now</span>
+            <FaArrowRight />
+          </div>
+        )}
+        <ApplyModal
+          setIsApllied={setIsApllied}
+          isOpen={isPopupOpen}
+          onClose={closePopup}
+          jobId={jobID}
+        />
       </div>
       <div className=" flex justify-between gap-4 ">
         <div className=" flex flex-col gap-4 flex-1">
